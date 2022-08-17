@@ -28,14 +28,15 @@ $(function () {
     }
   })
 
-  let data = {
-    username: $('#form_reg input[name=username]').val(),
-    password: $('#form_reg input[name=password]').val()
-  }
   // 监听注册表单的提交事件
   $('#form_reg').on('submit', function (e) {
     //  1.阻止表单默认提交行为
     e.preventDefault()
+
+    let data = {
+      username: $('#form_reg [name=username]').val(),
+      password: $('#form_reg [name=password]').val()
+    }
     //  在发起ajax中的 post 请求
     $.post('/api/reguser', data, function (res) {
       if (res.status !== 0) {
@@ -48,7 +49,7 @@ $(function () {
 
   })
 
-  $('.layui-form').submit(function (e) {
+  $('#form_log').submit(function (e) {
     e.preventDefault()
     $.ajax({
       method: 'POST',
@@ -63,7 +64,7 @@ $(function () {
         // 将登入成功得到的 token 字符串保存到本地localStorage
         localStorage.setItem('token', res.token)
         //跳转到后台主页
-        location.href = '/index.html'
+        location.href = './index.html'
       }
     })
   })
